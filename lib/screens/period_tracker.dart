@@ -1,5 +1,6 @@
 import 'package:flutter/foundation.dart';
 import "package:flutter/material.dart";
+import 'package:shared_preferences/shared_preferences.dart';
 
 class PeriodTracker extends StatefulWidget {
   const PeriodTracker({Key? key}) : super(key: key);
@@ -18,6 +19,26 @@ class _PeriodTrackerState extends State<PeriodTracker> {
     setState(() {
       _selectedIndex = index;
     });
+  }
+
+  late var dummy;
+  Future<void> setInitialDummyValue() async {
+    final Future<SharedPreferences> _pref = SharedPreferences.getInstance();
+    final SharedPreferences sharedPref = await _pref;
+    int startDate = sharedPref.getInt('startDate') ?? 1;
+    int startMonth = sharedPref.getInt('startMonth') ?? 05;
+    int startYear = sharedPref.getInt('startYear') ?? 2022;
+    setState(() {
+      dummy = DateTime(startYear, startMonth, startDate)
+          .difference(DateTime.now())
+          .inDays;
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    setInitialDummyValue();
   }
 
   @override
@@ -70,7 +91,7 @@ class _PeriodTrackerState extends State<PeriodTracker> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     mainAxisAlignment: MainAxisAlignment.center,
-                    children: const <Widget>[
+                    children: <Widget>[
                       Text('Period Due',
                           style: TextStyle(
                               color: Colors.white,
@@ -79,7 +100,7 @@ class _PeriodTrackerState extends State<PeriodTracker> {
                       SizedBox(
                         height: 5,
                       ),
-                      Text('5 Days',
+                      Text('$dummy  Days',
                           style: TextStyle(
                               color: Colors.white,
                               fontWeight: FontWeight.bold,

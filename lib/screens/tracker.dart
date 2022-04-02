@@ -99,15 +99,15 @@ class _trackerPageState extends State<trackerPage> {
                 ),
                 onPressed: () {
                   setStartDate();
-                  // Navigator.push(
-                  //   context,
-                  //   MaterialPageRoute(
-                  //       builder: (context) => const PeriodTracker()),
-                  // );
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const PeriodTracker()),
+                  );
                 },
               ),
             ),
-            Spacer(),
+            const Spacer(),
             Center(
               child: Container(
                 margin: EdgeInsets.only(top: 15),
