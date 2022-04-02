@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_application_1/screens/calender.dart';
 
 import 'package:flutter_application_1/screens/period_tracker.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class trackerPage extends StatefulWidget {
   const trackerPage({Key? key}) : super(key: key);
@@ -11,6 +12,15 @@ class trackerPage extends StatefulWidget {
 }
 
 class _trackerPageState extends State<trackerPage> {
+  final Future<SharedPreferences> _pref = SharedPreferences.getInstance();
+  // for setting start date
+  Future<void> setStartDate() async {
+    final SharedPreferences prefs = await _pref;
+    prefs.setInt('startDate', 1);
+    prefs.setInt('startMonth', 5);
+    prefs.setInt('startYear', 2022);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -88,11 +98,12 @@ class _trackerPageState extends State<trackerPage> {
                   ),
                 ),
                 onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => const PeriodTracker()),
-                  );
+                  setStartDate();
+                  // Navigator.push(
+                  //   context,
+                  //   MaterialPageRoute(
+                  //       builder: (context) => const PeriodTracker()),
+                  // );
                 },
               ),
             ),
