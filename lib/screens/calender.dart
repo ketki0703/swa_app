@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/screens/chatbot.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:table_calendar/table_calendar.dart';
 
@@ -66,6 +67,22 @@ class _CalendarState extends State<Calendar> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      floatingActionButton: FloatingActionButton(
+        backgroundColor: Colors.white,
+        onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => const Chatbot()),
+          );
+        },
+        child: const CircleAvatar(
+          backgroundColor: Colors.white,
+          child: Image(
+            image: AssetImage("assets/chatbot_logo.jpeg"),
+            fit: BoxFit.fill,
+          ),
+        ),
+      ),
       backgroundColor: const Color.fromARGB(255, 241, 117, 68),
       body: Padding(
         padding: const EdgeInsets.only(top: 80, bottom: 20),
